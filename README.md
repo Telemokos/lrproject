@@ -3,7 +3,6 @@ The project for the clickable LR Set Review
 
 The purpose of this script is to provide a simple card-by-card view of each card in a new set, and play the short audio clip from the Limited Resources set review specific to that one card.
 
-This script uses Jquery.
 
 Folder Structure:
 
@@ -39,5 +38,10 @@ All paths and important names are dynamic and are assigned at the top of the cli
 3. file path to the Audio clips folder
 4. file path to the animations folder
 5. class name for the parent container for the cards
+
+Notes:
+
+1. This script uses Jquery
+2. I only included a few sample audio files because they are large, the fully live version should have all the audio clips
 
 
