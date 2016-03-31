@@ -3,6 +3,8 @@ The project for the clickable LR Set Review
 
 The purpose of this script is to provide a simple card-by-card view of each card in a new set, and play the short audio clip from the Limited Resources set review specific to that one card.
 
+This script uses Jquery.
+
 Folder Structure:
 
 /
