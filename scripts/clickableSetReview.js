@@ -1,5 +1,5 @@
 //**Set the below variables as needed for the specific page **
-var currentSetCode = "bfz"; //The 3 letter code for the set to be displayed
+var currentSetCode = "soi"; //The 3 letter code for the set to be displayed
 var pathToJSON = "scripts/sets/"; //Where the JSON files are stored
 var pathToAudio = "audio/"; //Where the audio clips are stored
 var pathToAnimations = "images/site/"; //Where the loading and sound animations are stored
@@ -67,27 +67,30 @@ function loadCardJSON(){
 function sortData(cardObject){
 	//Loop through each card and assign it to the sorted array
 	$.each(cardsObject[0], function(key, val){
-				//Sort order W-U-B-R-G-C-L
-				if(this['colors']){
-					if(this['colors'] == "White"){
-						sortedCards[0].push(this);
-					}else if(this['colors'] == "Blue"){
-						sortedCards[1].push(this);
-					}else if(this['colors'] == "Black"){
-						sortedCards[2].push(this);
-					}else if(this['colors'] == "Red"){
-						sortedCards[3].push(this);
-					}else if(this['colors'] == "Green"){
-						sortedCards[4].push(this);
-					}else if(this['colors'].length > 1){ //If the card is multicolored
-						sortedCards[5].push(this);
+				if(!this['manaCost'] && this['type'].indexOf("Land") == -1){
+				}else{ //If a mana cost exists (i.e. not a back side of DFC)
+					//Sort order W-U-B-R-G-C-L
+					if(this['colors']){
+						if(this['colors'] == "White"){
+							sortedCards[0].push(this);
+						}else if(this['colors'] == "Blue"){
+							sortedCards[1].push(this);
+						}else if(this['colors'] == "Black"){
+							sortedCards[2].push(this);
+						}else if(this['colors'] == "Red"){
+							sortedCards[3].push(this);
+						}else if(this['colors'] == "Green"){
+							sortedCards[4].push(this);
+						}else if(this['colors'].length > 1){ //If the card is multicolored
+							sortedCards[5].push(this);
+						}
 					}
-				}
-				else{
-					if(!this['colors'] && this['types'] == "Artifact"){
-						sortedCards[6].push(this);
-					}else if(!this['type'].indexOf("Basic") == -1){ 
-						sortedCards[7].push(this);
+					else{
+						if(!this['colors'] && this['types'] == "Artifact"){
+							sortedCards[6].push(this);
+						}else if(this['type'].indexOf("Basic") == -1){ 
+							sortedCards[7].push(this);
+						}
 					}
 				}
 			});
