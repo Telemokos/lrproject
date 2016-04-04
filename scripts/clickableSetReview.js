@@ -1,5 +1,6 @@
 //**Set the below variables as needed for the specific page **
 var currentSetCode = "soi"; //The 3 letter code for the set to be displayed
+var showRares = "false"; //Set to false until the Rares/Mythics review is up, once all cards are done, set to true
 var pathToJSON = "scripts/sets/"; //Where the JSON files are stored
 var pathToAudio = "audio/"; //Where the audio clips are stored
 var pathToAnimations = "images/site/"; //Where the loading and sound animations are stored
@@ -54,8 +55,19 @@ function loadCardJSON(){
 		//Loop through the sorted array and display each card into the HTML
 		$.each(sortedCards, function(){
 			$.each(this, function(){
-				displayCard(this);
-				numberOfCards++;
+				if(showRares == "false"){
+					switch(this['rarity']){
+						case "Rare":	break;
+						case "Mythic Rare":	break;
+						default:	displayCard(this);
+									numberOfCards++;
+									break;
+					}
+				}else{
+					displayCard(this);
+					numberOfCards++;
+				}
+				
 			});
 		});
 			
