@@ -1,5 +1,5 @@
 //**Set the below variables as needed for the specific page **
-var currentSetCode = "soi"; //The 3 letter code for the set to be displayed
+var currentSetCode = "akh"; //The 3 letter code for the set to be displayed
 var showRares = "false"; //Set to false until the Rares/Mythics review is up, once all cards are done, set to true
 var pathToJSON = "scripts/sets/"; //Where the JSON files are stored
 var pathToAudio = "audio/"; //Where the audio clips are stored
@@ -55,19 +55,22 @@ function loadCardJSON(){
 		//Loop through the sorted array and display each card into the HTML
 		$.each(sortedCards, function(){
 			$.each(this, function(){
-				if(showRares == "false"){
-					switch(this['rarity']){
-						case "Rare":	break;
-						case "Mythic Rare":	break;
-						default:	displayCard(this);
-									numberOfCards++;
-									break;
+				if(
+					((this['layout'] == "aftermath") && (this['name'] == this['names'][0])) || (this['number'] <= 269)
+				){
+					if(showRares == "false"){
+						switch(this['rarity']){
+							case "Rare":	break;
+							case "Mythic Rare":	break;
+							default:	displayCard(this);
+										numberOfCards++;
+										break;
+						}
+					}else{
+						displayCard(this);
+						numberOfCards++;
 					}
-				}else{
-					displayCard(this);
-					numberOfCards++;
 				}
-				
 			});
 		});
 			
@@ -111,6 +114,11 @@ function sortData(cardObject){
 function displayCard(cardObject){
 	//Replace the string of the card name to escape spaces and special characters
 	replacedName = cardObject.name.replace(/[^A-Z0-9]/ig, "")
+	
+	//If it's an aftermath card, adjust the name to "to"
+	if(cardObject.layout == "aftermath"){
+		replacedName = cardObject.names[0].concat("to"+cardObject.names[1]);	 
+	}
 	
 	//Create a div in the HTML for the card
 	$("<div />", {
